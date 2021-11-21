@@ -1,0 +1,88 @@
+<!--<form class="example-form">
+  <mat-form-field class="example-full-width" appearance="fill">
+    <input type="text" id="autocompleteid"
+           placeholder="Pick one"
+           [formControl]="myControl"
+           [matAutocomplete]="auto">
+    <mat-icon matSuffix>Cancel</mat-icon>
+    <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+      <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+        {{option}}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+</form>-->
+
+
+<div class="example-container">
+  <!--<form class="example-form">-->
+  <mat-form-field>
+
+    <button mat-button matPrefix mat-icon-button>
+      <mat-icon>search</mat-icon>
+    </button>
+    <input matInput placeholder="Search" id="autocompleteid" #tbName type="text" [matAutocomplete]="auto"  [formControl]="myControl">
+    <span matSuffix (click)="clearInput(tbName)">Cancel</span>
+    <!--<mat-label style="font-size: 25px;">Cancel</mat-label>-->
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option *ngFor="let option of filteredOptions  | async" [value]="option.deviceName" (onSelectionChange)="onSelectState(option.deviceName)">
+        {{option.deviceName}}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+  <!--</form>-->
+</div>
+
+
+
+<div class="example-container">
+  <mat-form-field>
+
+    <button mat-button matPrefix mat-icon-button>
+      <mat-icon>search</mat-icon>
+    </button>
+    <input matInput placeholder="Search" class="form-control" id="search-text" aria-describedby="search-text"
+         [(ngModel)]="searchText"  #tbName type="text" [matAutocomplete]="auto"  [formControl]="myControl"
+         autofocus>
+    <span matSuffix (click)="clearInput(tbName)">Cancel</span>
+   
+  </mat-form-field>
+</div>
+
+<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="devices">
+  <!--<thead>
+    <tr>
+      <th>Date</th>
+      <th>Temp. (C)</th>
+      <th>Temp. (F)</th>
+      <th>Summary</th>
+      <th>Summary</th>
+      <th>image</th>
+    </tr>
+  </thead>-->
+
+  <tbody>
+    <tr *ngFor="let device of devices | appFilter: searchText">
+      <td style="vertical-align:middle;"> <img src="assets/images/{{device.deviceImageName}}" /></td>
+      <td>{{ device.deviceName }}<br />{{displayStatus(device.devicesStatus)}}</td>
+
+      <td style="vertical-align:middle;">
+        <a [routerLink]="['/details',device.deviceID]">
+          <img src="assets/images/info.png" />
+        </a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="form-group">
+  <input type="text" class="form-control mb-4" placeholder="Search" [(ngModel)]="query" id="listSearch">
+</div>
+
+<div class="card mb-1" *ngFor="let data of Students | searchFilter: query">
+  <div class="card-body">
+    <h5 class="card-title">{{data.name}}</h5>
+    <h6 class="card-subtitle mb-2 text-muted">{{data.name}}</h6>
+    <p class="card-text">{{data.email}}</p>
+  </div>
+</div>
