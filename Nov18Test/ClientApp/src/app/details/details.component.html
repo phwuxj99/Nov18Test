@@ -1,6 +1,6 @@
 
 <div class="example-container">
-  <div class="row example-full-width">
+  <div class="row example-full-width device-bg-color">
      <mat-form-field class="example-full-width">
 
         <button mat-button matPrefix mat-icon-button>
@@ -15,14 +15,14 @@
   <div class="row">
     <div class="column">
       <h1 class="device-bg-color"> Related Devices </h1>
-      <table class='table table-striped' aria-labelledby="tableLabel" *ngIf="devices">
+      <table class = "device-table" *ngIf="devices">
         <tbody>
-          <tr class="device-bg-color" *ngFor="let device of relatedDevice">
-            <td style="vertical-align:middle;">
+          <tr *ngFor="let device of relatedDevice">
+            <td class="device-td" style="vertical-align: middle; text-align: center !important;">
               <img src="assets/images/{{device.deviceImageName}}" />
 
             </td>
-            <td>
+            <td class = "device-td td-text">
               {{ device.deviceName }}<br />{{displayStatus(device.devicesStatus)}}
             </td>
           </tr>

@@ -28,11 +28,6 @@ code {
   width: 100%;
 }
 
-.device-bg-color {
-  background-color: #e7ebf7;
-}
-
-
 .example-container {
   display: flex;
   flex-direction: column;
@@ -70,4 +65,32 @@ input.example-right-align {
   content: "";
   display: table;
   clear: both;
+}
+
+
+.device-bg-color {
+  background-color: #e7ebf7;
+}
+
+td {
+  width: 150px;
+  padding: 5px;
+  background-color: #e7ebf7;
+  vertical-align: middle;
+}
+td-text {
+  text-align: left;
+}
+td-image {
+  text-align: center !important;
+}
+
+.device-td {
+  border-right: hidden;
+}
+
+.device-table {
+  border-collapse: separate;
+  border-spacing: 0 15px;
+  width: 100%;
 }

@@ -1,11 +1,11 @@
 
-<div class="example-container">
+<div class="example-container device-bg-color">
   <mat-form-field>
 
     <button mat-button matPrefix mat-icon-button>
       <mat-icon>search</mat-icon>
     </button>
-    <input matInput placeholder="Search" class="form-control" id="search-text" aria-describedby="search-text" #tbName type="text" [matAutocomplete]="auto" [formControl]="myControl"
+    <input matInput placeholder="Search" class="form-control " id="search-text" aria-describedby="search-text" #tbName type="text" [matAutocomplete]="auto" [formControl]="myControl"
            [(ngModel)]="searchText"
            autofocus>
     <span matSuffix (click)="clearInput(tbName)">Cancel</span>
@@ -19,18 +19,18 @@
   </mat-form-field>
 </div>
 
-<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="devices">
+<table class='table device-table' aria-labelledby="tableLabel" *ngIf="devices">
   <tbody>
-    <tr class="device-bg-color" *ngFor="let device of devices | appFilter: searchText">
-      <td style="vertical-align:middle;">
+    <tr *ngFor="let device of devices | appFilter: searchText">
+      <td class="device-td" style="vertical-align: middle; text-align: center !important;">
         <a [routerLink]="['/details',device.deviceID]">
           <img src="assets/images/{{device.deviceImageName}}" />
         </a>
       </td>
-      <td>
+      <td class="device-td">
         {{ device.deviceName }}<br />{{displayStatus(device.devicesStatus)}}
       </td>
-      <td style="vertical-align:middle;">
+      <td class="device-td td-image" style="vertical-align: middle; text-align: center !important;">
         <a [routerLink]="['/details',device.deviceID]">
           <img src="assets/images/info.png" />
         </a>
