@@ -41,13 +41,15 @@ namespace Nov18Test.Controllers
             return devicesList;
         }
 
-        [Route("SearchByName")]
+        [Route("SearchRelatedByID")]
         [HttpGet]
-        public IEnumerable<Devices> SearchByName(string name)
+        public IEnumerable<Devices> SearchRelatedByID(string id)
         {
-            var NameList = devicesRepository.GetAllDevicesList().Where(x=>x.DeviceName.Contains(name)).ToArray();
+            var NameList = devicesRepository.GetAllDevicesList().ToArray();
+            var details = NameList.SingleOrDefault(x => x.DeviceID.ToString().ToLower() == id.ToLower());
+            var related = NameList.Where(x => x.DevicesCategory == details.DevicesCategory && x.DeviceID != details.DeviceID).Take(3);                          
 
-            return NameList;
+            return  related;
         }
 
 

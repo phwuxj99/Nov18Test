@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { HttpClient, HttpParams } from '@angular/common/http';
+import { DataService } from '../device.service';
 
 @Component({
   selector: 'app-details-component',
@@ -10,54 +11,49 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 
 
 export class DetailsComponent {
-
-  public devices: Devices;
-  public devicesstatus: devicesstatus;
-
+  devices: Devices;
+  devicesstatus: devicesstatus;
+  relatedDevice: Devices[];
+  name: string;
+  status: string;
+  temperature: number;
 
   id;
   sub;
 
 
-  constructor(private Activatedroute: ActivatedRoute, http: HttpClient, @Inject('BASE_URL') baseUrl: string,
+  constructor(private dataService: DataService, private Activatedroute: ActivatedRoute, http: HttpClient, @Inject('BASE_URL') baseUrl: string,
     private router: Router) {
 
     this.sub = this.Activatedroute.paramMap.subscribe(params => {
-      console.log(params);
+      /*console.log(params);*/
       this.id = params.get('id');
     });
 
     const params = new HttpParams().set('deviceID', this.id)
     //console.log(params);
     http.get<Devices>(baseUrl + 'devices/GetDeviceDetails', { params }).subscribe(result => {
-      console.log(result);
-
+      /*console.log(result);*/
+      this.name = result.deviceName;
+      this.status = this.displayStatus(result.devicesStatus);
+      this.temperature = result.deviceTemperature;
 
       this.devices = result;
-      //const x = this.devices[0].devicesStatus;
-      //console.log(devicesstatus[x]);
     }, error => console.error(error));
+
+
+    this.dataService.getRelated(this.id).subscribe(posts => {
+      this.relatedDevice = posts;
+    });
   }
 
-  ngOnInit() {
+  ngOnInit() { }
 
-    // This params is deprecated
-
-    //this.sub=this._Activatedroute.params.subscribe(params => { 
-    //    this.id = params['id']; 
-    //    let products=this._productService.getProducts();
-    //    this.product=products.find(p => p.productID==this.id);    
-    //
-    //});
+  public displayStatus(statusNum) {
+    return devicesstatus[statusNum];
   }
-
-
-  public currentCount = 0;
-  public incrementCounter() {
-    this.currentCount++;
-  }
-  
 }
+
 interface Devices {
   deviceID: string;
   deviceName: string;

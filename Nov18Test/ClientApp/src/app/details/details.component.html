@@ -1,9 +1,42 @@
-<h1>Details</h1>
 
-<p>This is a simple example of an Angular component.</p>
+<div class="example-container">
+  <div class="row example-full-width">
+     <mat-form-field class="example-full-width">
 
-<p aria-live="polite">Current count: <strong>{{ currentCount }}</strong></p>
-<h3>
-  {{ devices.deviceName }}
-</h3>
-  <button class="btn btn-primary" (click)="incrementCounter()">Increment</button>
+        <button mat-button matPrefix mat-icon-button>
+          <mat-icon>search</mat-icon>
+        </button>
+        <input matInput placeholder="Search" class="form-control" id="search-text" aria-describedby="search-text" #tbName type="text"
+               autofocus>
+        <span matSuffix>Cancel</span>
+
+      </mat-form-field>
+  </div>
+  <div class="row">
+    <div class="column">
+      <h1 class="device-bg-color"> Related Devices </h1>
+      <table class='table table-striped' aria-labelledby="tableLabel" *ngIf="devices">
+        <tbody>
+          <tr class="device-bg-color" *ngFor="let device of relatedDevice">
+            <td style="vertical-align:middle;">
+              <img src="assets/images/{{device.deviceImageName}}" />
+
+            </td>
+            <td>
+              {{ device.deviceName }}<br />{{displayStatus(device.devicesStatus)}}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+    <div class="column" >
+      <h1 class="device-bg-color"> {{name}}</h1>
+      <p>Status: {{status}}</p>
+      <p>Temperature: {{temperature}} Celsius</p>
+      <p>Usage</p>
+      <img src="../../assets/images/usage.png" />
+    </div>
+  </div>
+</div>
+

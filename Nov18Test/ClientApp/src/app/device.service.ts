@@ -1,7 +1,6 @@
 import {  Injectable } from '@angular/core';
-//import { Post } from './post';
 import { Observable, of } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import {tap } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 
@@ -15,7 +14,7 @@ export class DataService {
   public devicesData: Devices[]
   public testStr:string[]
   GetAllUrl: string = this.apiUrl + 'devices/getalldevices';
-  SearchByNameUrl: string = this.apiUrl + 'devices/SearchByName';
+  RelatedDeviceUrl: string = this.apiUrl + 'devices/SearchRelatedByID';
 
   constructor(private http: HttpClient, private Activatedroute: ActivatedRoute) { }
 
@@ -25,18 +24,10 @@ export class DataService {
 
   }
 
-
-  id;
-  sub;
-
-  //projects: string[] = [];
-  ////projects: Array[];
-  //searchByName(name) {
-  //  const params = new HttpParams().set('name', name)
-  //  this.http.get<Devices[]>(this.SearchByNameUrl, { params }).subscribe(result => {
-  //    //console.log(result);
-  //  }, error => console.error(error));
-  //}
+  getRelated(id): Observable<Devices[]> {
+    const params = new HttpParams().set('id', id)
+    return this.http.get<Devices[]>(this.RelatedDeviceUrl, { params });
+  }
 
   opts = [];
   getData() {
